@@ -2,8 +2,11 @@
 #include <string.h>
 #include <assert.h>
 
+#include <stdio.h>
+
 #include "lib/str.h"
 #include "lib/memory.h"
+#include "lib/array.h"
 
 char *ccn_str_cpy(const char *source) {
     assert(source != NULL);
@@ -24,6 +27,30 @@ char *ccn_str_cat(const char *first, const char *second) {
     return result;
 }
 
-extern bool ccn_str_equal(const char *first, const char *second) {
+bool ccn_str_equal(const char *first, const char *second) {
     return strcmp(first, second) == 0;
+}
+
+
+array *ccn_str_split(char *target, const char delimeter) {
+    array *matches = create_array();
+    char *start = target;
+    char *current = target;
+    size_t size = 0;
+    while (*current) {
+        if (*current == delimeter) {
+            char *match = mem_copy(start, size + 1);
+            match[size] = '\0';
+            array_append(matches, match);
+            size = 0;
+            start = current + 1;
+        } else {
+            size++;
+        }
+        current++;
+    }
+    char *last_match = mem_copy(start, size + 1);
+    last_match[size] = '\0';
+    array_append(matches, last_match);
+    return matches;
 }
