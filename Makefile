@@ -15,9 +15,9 @@ SRC := $(wildcard $(SOURCE_DIR)/*.c)
 OBJ := $(SRC:.c=.o)
 OBJ := $(patsubst $(SOURCE_DIR)/%, $(BUILD_DIR)/%, $(OBJ))
 
-coconut-lib: $(BIN_DIR)/coconut-lib.a
+coconut-lib: $(BIN_DIR)/coconut_lib.a
 
-$(BIN_DIR)/coconut-lib.a: $(OBJ)
+$(BIN_DIR)/coconut_lib.a: $(OBJ)
 	$(SILENCED)$(AR) $(AR_FLAGS) $@ $^ 
 
 
