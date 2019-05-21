@@ -8,7 +8,7 @@ INCLUDE_DIRS = -Iinclude/
 SOURCE_DIR = source
 BIN_DIR = bin
 BUILD_DIR  = build
-SILENCED:=@
+SILENCED:=
 AR := ar
 AR_FLAGS := rcs
 SRC := $(wildcard $(SOURCE_DIR)/*.c)
@@ -18,7 +18,7 @@ OBJ := $(patsubst $(SOURCE_DIR)/%, $(BUILD_DIR)/%, $(OBJ))
 coconut-lib: $(BIN_DIR)/coconut-lib.a
 
 $(BIN_DIR)/coconut-lib.a: $(OBJ)
-	$(SILENCED)$(AR) $(AR_FLAGS) $@ $< 
+	$(SILENCED)$(AR) $(AR_FLAGS) $@ $^ 
 
 
 $(OBJ): | $(BUILD_DIR) $(BIN_DIR)
