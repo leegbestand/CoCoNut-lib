@@ -14,3 +14,5 @@ extern bool ccn_str_equal(const char *first, const char *second);
  * NOTE: do not forget to free the array and the strings in the array.
  */
 extern array *ccn_str_split(char *target, const char delimeter);
+
+bool ccn_str_startswith(const char *str, const char *pre);
