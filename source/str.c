@@ -54,3 +54,7 @@ array *ccn_str_split(char *target, const char delimeter) {
     array_append(matches, last_match);
     return matches;
 }
+
+bool ccn_str_startswith(const char *str, const char *pre) {
+    return strncmp(pre, str, strlen(pre)) == 0;
+}
