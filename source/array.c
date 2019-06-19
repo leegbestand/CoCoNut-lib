@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
 
 #include "lib/array.h"
 #include "lib/memory.h"
@@ -49,7 +50,7 @@ int array_set(struct array *a, int index, void *p) {
     return 0;
 }
 
-void *array_get(struct array *a, int index) {
+void *array_get(const struct array *a, int index) {
     if (index < a->size)
         return a->data[index];
     else
@@ -75,7 +76,7 @@ void *array_pop(struct array *a) {
 }
 
 // TODO: make of type size_t;
-int array_size(struct array *a) {
+size_t array_size(const struct array *a) {
     if (a == NULL)
         return 0;
     return a->size;
@@ -97,7 +98,7 @@ void array_map(struct array *a, void (*func)(const void *)) {
     }
 }
 
-void *array_last(struct array *a) {
+void *array_last(const struct array *a) {
     const int size = array_size(a);
     if (size == 0)
         return NULL;

@@ -22,7 +22,7 @@ void array_cleanup(struct array *a, void free_func(void *));
 int array_set(struct array *a, int index, void *p);
 
 /* Return element at 'index' or NULL if an error occured. */
-void *array_get(struct array *a, int index);
+void *array_get(const struct array *a, int index);
 
 /* Append 'p' to the end of array 'a'.
  * Return 0 if succesful, -1 otherwise. */
@@ -33,7 +33,7 @@ int array_append(struct array *a, void *p);
 void *array_pop(struct array *a);
 
 /* Return the size of array 'a'. */
-int array_size(struct array *a);
+size_t array_size(const struct array *a);
 
 /* Remove all elements from array 'a' */
 void array_clear(struct array *a);
@@ -46,6 +46,6 @@ void array_sort(struct array *a, int (*compare)(const void *, const void *));
 void array_map(struct array *a, void (*func)(const void *));
 
 /* Returns the last element in the array. */
-void *array_last(struct array *a);
+void *array_last(const struct array *a);
 
 #endif

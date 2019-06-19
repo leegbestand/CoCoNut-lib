@@ -27,12 +27,7 @@ char *ccn_str_cat(const char *first, const char *second) {
     return result;
 }
 
-/* Concatenate $n$ strings together.
- * In case of all empty string the return string will be empty as well.
- *
- * CONTRACT:
- *  - none of the values may be NULL, in case of NULL it is UB.
- */
+
 char *ccn_str_cat_n(const int n, ...) {
     assert(n > 0);
 
@@ -59,6 +54,28 @@ char *ccn_str_cat_n(const int n, ...) {
         strcat(result, val);
     }
     va_end(va_args);
+
+    return result;
+}
+
+
+char *ccn_str_cat_array(const array *strings) {
+    assert(strings != NULL);
+    size_t size = 0;
+
+    for (int i = 0; i < array_size(strings); ++i) {
+        char *val = array_get(strings, i);
+        assert(val != NULL);
+        size += strlen(val);
+    }
+
+    char *result = (char*)mem_alloc(sizeof(char) * (size + 1));
+    result[0] = '\0'; // We start with an empty string.
+
+    for (int i = 0; i < array_size(strings); ++i) {
+        char *val = array_get(strings, i);
+        strcat(result, val);
+    }
 
     return result;
 }
