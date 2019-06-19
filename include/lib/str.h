@@ -6,6 +6,7 @@
 extern char *ccn_str_cpy(const char *source);
 extern char *ccn_str_cat(const char *first, const char *second);
 extern bool ccn_str_equal(const char *first, const char *second);
+extern char *ccn_str_cat_n(const int n, ...);
 
 /* Splits a string on the given delimeter. Returns an allocated array of all
  * the sub-strings that where created. If the delimiter was not found

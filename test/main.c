@@ -6,5 +6,8 @@ int main(int argc, char **argv) {
     for (int i = 0; i < array_size(splits); ++i) {
         printf("Split: %s\n", (char*)array_get(splits, i));
     }
+
+    char *catted_n = ccn_str_cat_n(3, "Hello", " World", " Catted");
+    printf("%s\n", catted_n);
     return 0;
 }

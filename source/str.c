@@ -1,7 +1,7 @@
 
 #include <string.h>
 #include <assert.h>
-
+#include <stdarg.h>
 #include <stdio.h>
 
 #include "lib/str.h"
@@ -24,6 +24,42 @@ char *ccn_str_cat(const char *first, const char *second) {
     char *result = (char *)mem_alloc(len_first + len_second + 1);
     strcpy(result, first);
     strcat(result, second);
+    return result;
+}
+
+/* Concatenate $n$ strings together.
+ * In case of all empty string the return string will be empty as well.
+ *
+ * CONTRACT:
+ *  - none of the values may be NULL, in case of NULL it is UB.
+ */
+char *ccn_str_cat_n(const int n, ...) {
+    assert(n > 0);
+
+    size_t size = 0;
+    va_list va_args;
+    va_start(va_args, n);
+
+    for (int i = 0; i < n; i++) {
+        char *val = va_arg(va_args, char*);
+        assert(val != NULL);
+        size += strlen(val);
+    }
+    va_end(va_args);
+
+    char *result = (char*)mem_alloc(sizeof(char) * (size + 1));
+    result[0] = '\0'; // We start with an empty string.
+
+    if (size == 0) return result;
+
+    va_start(va_args, n);
+
+    for (int i = 0; i < n; i++) {
+        char *val = va_arg(va_args, char*);
+        strcat(result, val);
+    }
+    va_end(va_args);
+
     return result;
 }
 
