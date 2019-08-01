@@ -8,8 +8,8 @@
 
 struct array {
     void **data;
-    long size;
-    long capacity;
+    size_t size;
+    size_t capacity;
 };
 
 array *create_array(void) {
@@ -75,7 +75,6 @@ void *array_pop(struct array *a) {
     return last;
 }
 
-// TODO: make of type size_t;
 size_t array_size(const struct array *a) {
     if (a == NULL)
         return 0;
@@ -92,7 +91,7 @@ void array_sort(struct array *a, int (*compare)(const void *, const void *)) {
 
 void array_map(struct array *a, void (*func)(const void *)) {
     assert(a != NULL && func != NULL);
-    const int size = array_size(a);
+    const size_t size = array_size(a);
     for (int i = 0; i < size; ++i) {
         func(array_get(a, i));
     }

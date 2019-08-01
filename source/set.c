@@ -3,9 +3,6 @@
 
 #include <assert.h>
 
-// TODO: create set implementations, like one for strings, ints and so on.
-// TODO rename CCNset to ccn_set.
-
 static const int INITIAL_SET_SIZE = 10;
 
 // Required for non-optimised builds.
@@ -86,9 +83,11 @@ void *ccn_set_get(ccn_set_t *set, void *item) {
 }
 
 void ccn_set_free_with_func(ccn_set_t *set, void (*free_func)(void *)) {
-    if (set == NULL)
-        return;
-    smap_free_values(set->hash_map, free_func);
+    assert(set != NULL);
+
+    if (free_func != NULL) {
+        smap_free_values(set->hash_map, free_func);
+    }
     smap_free(set->hash_map);
     mem_free(set);
 }
