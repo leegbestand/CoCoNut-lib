@@ -1,9 +1,10 @@
 MKDIR = mkdir -p
 
-CC           := gcc
-CFLAGS       := -Wall -std=gnu11 -g -Og -pedantic -MMD \
-				-Werror=implicit-function-declaration
-LDFLAGS      := -lcoconut
+CC           ?= gcc
+CFLAGS       ?= -Wall -std=gnu11 -Og -pedantic -MMD \
+				-Werror=implicit-function-declaration #-fsanitize=address -fno-omit-frame-pointer
+
+LDFLAGS      := -lcoconut #-fsanitize=address 
 LFLAGS       := -L./bin/
 INCLUDE_DIRS = -Iinclude/
 SOURCE_DIR = source

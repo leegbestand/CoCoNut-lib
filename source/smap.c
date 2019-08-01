@@ -49,7 +49,7 @@ void smap_free_values(smap_t *map, void (*func)(void *)) {
 
 }
 
-unsigned int smap_hash_fun(char *key) {
+unsigned int smap_hash_fun(const char *key) {
     /* This is the djb2 algorithm as found for hashing strings.
      * Source: http://www.cse.yorku.ca/~oz/hash.html
      */
@@ -63,7 +63,7 @@ unsigned int smap_hash_fun(char *key) {
     return hash;
 }
 
-unsigned int smap_hash(smap_t *t, char *key) {
+unsigned int smap_hash(smap_t *t, const char *key) {
     return smap_hash_fun(key) % t->size;
 }
 
@@ -94,7 +94,7 @@ void smap_insert(smap_t *t, char *key, void *value) {
         t->slots[smap_hash(t, key)] = smap_entry_init(key, value);
 }
 
-void *smap_retrieve(smap_t *t, char *key) {
+void *smap_retrieve(smap_t *t, const char *key) {
     if (t->slots[smap_hash(t, key)])
         for (smap_entry_t *last = t->slots[smap_hash(t, key)]; last;
              last = last->next)
@@ -149,6 +149,20 @@ array *smap_values(smap_t *map) {
     for (int i = 0; i < map->size; i++) {
         for (smap_entry_t *elem = map->slots[i]; elem; elem = elem->next) {
             array_append(values, elem->value);
+        }
+    }
+    return values;
+}
+
+array *smap_keys(smap_t *map) {
+    assert(map != NULL);
+    if (map->size < 1) { // Maybe assert or give empty array?
+        return NULL;
+    }
+    array *values = array_init(map->size);
+    for (int i = 0; i < map->size; i++) {
+        for (smap_entry_t *elem = map->slots[i]; elem; elem = elem->next) {
+            array_append(values, elem->key);
         }
     }
     return values;

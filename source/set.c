@@ -8,6 +8,10 @@
 
 static const int INITIAL_SET_SIZE = 10;
 
+// Required for non-optimised builds.
+void ccn_set_free(ccn_set_t *set);
+
+
 ccn_set_t *ccn_set_create(char *(*key_func)(void *),
                          void *(*copy_func)(const void *)) {
 
