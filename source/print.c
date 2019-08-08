@@ -2,6 +2,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+#include "lib/color.h"
+
 #include "lib/array.h"
 #include "lib/imap.h"
 #include "lib/print.h"

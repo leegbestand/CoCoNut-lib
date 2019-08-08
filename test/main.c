@@ -3,6 +3,21 @@
 
 #include "lib/str.h"
 #include "lib/array.h"
+#include "lib/assert.h"
+#include "lib/log.h"
+#include <assert.h>
+
+void logTest() {
+    CCNlogDebug("Hello debug test");
+    CCNlogInfo("Information here");
+    CCNlogWarn("Warnings required");
+    CCNlogError("Error happened");
+}
+
+void assertTest() {
+    CCNassert(2 > 1, "Two is bigger than one");
+    CCNassert(2 < 1, "2 < 1");
+}
 
 int main(int argc, char **argv) {
     char *split_test = "split.on.dots";
@@ -22,6 +37,9 @@ int main(int argc, char **argv) {
 
     char *array_catted = ccn_str_cat_array(array_string);
     printf("%s\n", array_catted);
+
+    logTest();
+    assertTest();
 
     return 0;
 }
