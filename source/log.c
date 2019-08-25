@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-void _CCNlogHandler(enum _logTypeCCN log_type, const char *file, const char *func, unsigned int line, const char *format, ...)
+void _ccn_log_handler(enum _logTypeCCN log_type, const char *file, const char *func, unsigned int line, const char *format, ...)
 {
     char *color = "";
     char *header = "";

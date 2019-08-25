@@ -8,19 +8,19 @@ enum _logTypeCCN {
     ErrorCCNlogType
 };
 
-extern void _CCNlogHandler(enum _logTypeCCN type, const char *file, const char *func, unsigned int line, const char *format, ...);
+extern void _ccn_log_handler(enum _logTypeCCN type, const char *file, const char *func, unsigned int line, const char *format, ...);
 
 #ifndef NDEBUG
-#define CCNlogInfo(...) (_CCNlogHandler(InfoCCNlogType, __FILE__, __func__, __LINE__, __VA_ARGS__))
-#define CCNlogDebug(...) (_CCNlogHandler(DebugCCNlogType, __FILE__, __func__, __LINE__, __VA_ARGS__))
-#define CCNlogFatal(...) (_CCNlogHandler(FatalCCNlogType, __FILE__, __func__, __LINE__, __VA_ARGS__))
-#define CCNlogWarn(...) (_CCNlogHandler(WarnCCNlogType, __FILE__, __func__, __LINE__, __VA_ARGS__))
-#define CCNlogError(...) (_CCNlogHandler(ErrorCCNlogType, __FILE__, __func__, __LINE__, __VA_ARGS__))
+#define ccn_log_info(...) (_ccn_log_handler(InfoCCNlogType, __FILE__, __func__, __LINE__, __VA_ARGS__))
+#define ccn_log_debug(...) (_ccn_log_handler(DebugCCNlogType, __FILE__, __func__, __LINE__, __VA_ARGS__))
+#define ccn_log_fatal(...) (_ccn_log_handler(FatalCCNlogType, __FILE__, __func__, __LINE__, __VA_ARGS__))
+#define ccn_log_warn(...) (_ccn_log_handler(WarnCCNlogType, __FILE__, __func__, __LINE__, __VA_ARGS__))
+#define ccn_log_error(...) (_ccn_log_handler(ErrorCCNlogType, __FILE__, __func__, __LINE__, __VA_ARGS__))
 #else
-#define CCNlogInfo(...) (void(0))
-#define CCNlogDebug(...) (void(0)) 
-#define CCNlogFatal(...) (void(0))
-#define CCNlogWarn(...) (void(0))
-#define CCNlogError(...) (void(0))
+#define ccn_log_info(...) (void(0))
+#define ccn_log_debug(...) (void(0)) 
+#define ccn_log_fatal(...) (void(0))
+#define ccn_log_warn(...) (void(0))
+#define ccn_log_error(...) (void(0))
 #endif
 

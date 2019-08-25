@@ -24,18 +24,37 @@ typedef struct ccn_set {
 /** Function to create a set.
  *  The key function should returned a allocated char *.
  *  The copy func should create a deep copy of the item in the set.
+ *  
+ *  The copy function is optional, set it to NULL if you never want
+ *  to create copies. When the copy_func is set to NULL, the
+ *  ccn_set_insert function will NOT create a copy.
+ *  This is useful for sets that have large objects with expensive
+ *  copy operations.
  */
 ccn_set_t *ccn_set_create(char *(*key_func)(void *),
                          void *(*copy_func)(const void *));
+
 
 ccn_set_t *ccn_set_create_with_size(char *(*key_func)(void *),
                                    void *(*copy_func)(const void *),
                                    size_t size);
 
 /* Insert item into set, if item is already in set, return false
+ * Creates a copy of the item when inserting.
  * else true.
+ * 
+ * CONTRACT:
+ *    - set can not be NULL
+ *    - item can not be NULL
  */
 bool ccn_set_insert(ccn_set_t *set, void *item);
+
+/* Insert item into set, same returns and contracts as ccn_set_insert.
+ * This function does not copy the item before inserting.
+ */
+bool ccn_set_insert_noncopy(ccn_set_t *set, void *item);
+
+
 size_t ccn_set_size(ccn_set_t *set);
 
 /* Checks if the item is contained in the set. 
@@ -47,7 +66,7 @@ size_t ccn_set_size(ccn_set_t *set);
 bool ccn_set_contains(ccn_set_t *set, void *item);
 
 // NOT IMPLEMENTED, yet!
-void ccn_set_remove(ccn_set_t *set, void *item);
+void ccn_set_remove_item(ccn_set_t *set, void *item);
 
 /* Creates a deep copy of the target set. */
 ccn_set_t *ccn_set_copy(ccn_set_t *target);

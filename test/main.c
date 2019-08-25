@@ -7,16 +7,16 @@
 #include "lib/log.h"
 #include <assert.h>
 
-void logTest() {
-    CCNlogDebug("Hello debug test");
-    CCNlogInfo("Information here");
-    CCNlogWarn("Warnings required");
-    CCNlogError("Error happened");
+void log_test() {
+    ccn_log_debug("Hello debug test");
+    ccn_log_info("Information here");
+    ccn_log_warn("Warnings required");
+    ccn_log_error("Error happened");
 }
 
-void assertTest() {
-    CCNassert(2 > 1, "Two is bigger than one");
-    CCNassert(2 < 1, "2 < 1");
+void assert_test() {
+    ccn_assert(2 > 1, "Two is bigger than one");
+    ccn_contract_in(NULL != NULL);
 }
 
 int main(int argc, char **argv) {
@@ -38,8 +38,8 @@ int main(int argc, char **argv) {
     char *array_catted = ccn_str_cat_array(array_string);
     printf("%s\n", array_catted);
 
-    logTest();
-    assertTest();
+    log_test();
+    assert_test();
 
     return 0;
 }

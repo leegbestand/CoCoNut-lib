@@ -6,7 +6,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-static void printAssertHeader()
+static void print_assert_header()
 {
     PRINT_COLOR(BRIGHT_RED);
     fprintf(stderr, "[ASSERT] ");
@@ -14,12 +14,12 @@ static void printAssertHeader()
 
 }
 
-void _CCNassertHandler(const char *file, const char *function, unsigned int line, 
-                       const char *assertion_string, bool assertion_result, const char *format, ...)
+void _ccn_assert_handler(const char *file, const char *function, unsigned int line, 
+                         const char *assertion_string, bool assertion_result, const char *format, ...)
 {
     if (assertion_result) return;
 
-    printAssertHeader();
+    print_assert_header();
     fprintf(stderr, "Assertion failed: ");
 
     va_list args;
@@ -28,10 +28,11 @@ void _CCNassertHandler(const char *file, const char *function, unsigned int line
     fputc('\n', stderr);
     va_end(args);
 
-    printAssertHeader(); 
+    print_assert_header();
     fprintf(stderr, "Expected: %s\n", assertion_string);
 
-    printAssertHeader();
+
+    print_assert_header();
     fprintf(stderr, "Location: %s:%d in function: %s\n", file, line, function);
     abort();
 }
