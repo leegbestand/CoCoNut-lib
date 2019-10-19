@@ -4,24 +4,35 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+#include "lib/assert.h"
+#include "lib/log.h"
 #include "lib/str.h"
 #include "lib/memory.h"
 #include "lib/array.h"
 
-char *ccn_str_cpy(const char *source) {
-    assert(source != NULL);
 
-    size_t len = strlen(source);
-    char *destination = (char *)mem_alloc(len + 1);
-    strcpy(destination, source);
-    return destination;
+char *ccn_str_cpy(const char *source) {
+    ccn_contract_in(source != NULL);
+
+    char *copy = strdup(source);
+    if (copy == NULL) {
+	ccn_log_error("Could not duplicate strings");
+	exit(EXIT_FAILURE);
+    }
+
+    return copy;
 }
 
+
 char *ccn_str_cat(const char *first, const char *second) {
-    assert(first != NULL && second != NULL);
+    ccn_contract_in(first != NULL);
+    ccn_contract_in(second != NULL);
+
     size_t len_first = strlen(first);
     size_t len_second = strlen(second);
-    char *result = (char *)mem_alloc(len_first + len_second + 1);
+
+    char *result = mem_alloc(sizeof(char) * (len_first + len_second + 1));
+
     strcpy(result, first);
     strcat(result, second);
     return result;
@@ -29,7 +40,7 @@ char *ccn_str_cat(const char *first, const char *second) {
 
 
 char *ccn_str_cat_n(const int n, ...) {
-    assert(n > 0);
+    ccn_contract_in(n > 0);
 
     size_t size = 0;
     va_list va_args;
@@ -37,7 +48,7 @@ char *ccn_str_cat_n(const int n, ...) {
 
     for (int i = 0; i < n; i++) {
         char *val = va_arg(va_args, char*);
-        assert(val != NULL);
+	ccn_contract_in(val != NULL);
         size += strlen(val);
     }
     va_end(va_args);
@@ -60,7 +71,8 @@ char *ccn_str_cat_n(const int n, ...) {
 
 
 char *ccn_str_cat_array(const array *strings) {
-    assert(strings != NULL);
+    ccn_contract_in(strings != NULL);
+
     size_t size = 0;
 
     for (int i = 0; i < array_size(strings); ++i) {
@@ -80,7 +92,9 @@ char *ccn_str_cat_array(const array *strings) {
     return result;
 }
 
+
 bool ccn_str_equal(const char *first, const char *second) {
+    if (first == second) return true;
     return strcmp(first, second) == 0;
 }
 
@@ -90,6 +104,7 @@ array *ccn_str_split(char *target, const char delimeter) {
     char *start = target;
     char *current = target;
     size_t size = 0;
+
     while (*current) {
         if (*current == delimeter) {
             char *match = mem_copy(start, size + 1);
@@ -102,11 +117,14 @@ array *ccn_str_split(char *target, const char delimeter) {
         }
         current++;
     }
+
     char *last_match = mem_copy(start, size + 1);
     last_match[size] = '\0';
     array_append(matches, last_match);
+
     return matches;
 }
+
 
 bool ccn_str_startswith(const char *str, const char *pre) {
     return strncmp(pre, str, strlen(pre)) == 0;

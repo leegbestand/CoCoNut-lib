@@ -218,8 +218,6 @@ void print_user_error(char *header, const char *format, ...) {
 
     PRINT_COLOR(RESET_COLOR);
 
-    PRINT_COLOR(RESET_COLOR);
-
     va_list ap;
     va_start(ap, format);
     vfprintf(stderr, format, ap);

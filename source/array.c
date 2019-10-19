@@ -42,6 +42,7 @@ void array_cleanup(struct array *a, void free_func(void *)) {
     free(a);
 }
 
+// TODO: make conditional a contract.
 int array_set(struct array *a, int index, void *p) {
     if (index >= a->size)
         return -1;
@@ -50,6 +51,7 @@ int array_set(struct array *a, int index, void *p) {
     return 0;
 }
 
+// TODO: probably make the if in a in_contract.
 void *array_get(const struct array *a, int index) {
     if (index < a->size)
         return a->data[index];
