@@ -21,3 +21,9 @@
         if (isatty(STDERR_FILENO))                                            \
             fprintf(stderr, c);                                               \
     }
+
+#define PRINT_COLOR_STDOUT(c)         \
+    {                                 \
+	if (isatty(STDOUT_FILENO))    \
+	    printf(c); 	              \
+    }
