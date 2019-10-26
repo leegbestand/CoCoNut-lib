@@ -7,6 +7,7 @@
 #include "lib/array.h"
 #include "lib/imap.h"
 #include "lib/print.h"
+#include "lib/assert.h"
 
 static char *yy_header;
 static char *yy_filename;
@@ -223,3 +224,19 @@ void print_user_error(char *header, const char *format, ...) {
     vfprintf(stderr, format, ap);
     fprintf(stderr, "\n");
 }
+
+void print_char_n_times(char c, size_t n) {
+    for (size_t i = 0; i < n; i++) {
+	putchar(c)
+    }
+}
+
+void print_string_n_times(char *string, size_t n) {
+    ccn_contract_in(string != NULL);
+
+    for (size_t i = 0; i < n; i++) {
+	printf("%s", string);
+    }
+}
+
+

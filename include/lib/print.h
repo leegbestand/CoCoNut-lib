@@ -6,6 +6,13 @@
 #include "lib/array.h"
 #include "lib/imap.h"
 
+void print_char_n_times(char, size_t n);
+
+/**
+ * CONTRACT:
+ *   string != NULL
+ */
+void print_string_n_times(char *string, size_t n);
 
 // We define the type for YYLTYPE here,
 // to avoid a circular dependency between this header and the parser
@@ -27,11 +34,13 @@ void print_error(void *loc_obj, char *format, ...);
 void print_error_at(int lineno, int column, char *line, char *format, ...);
 void print_error_range(int lineno, int column_start, int column_end,
                        char *line, char *format, ...);
+
 void print_error_no_loc(char *format, ...);
 void print_warning(void *loc_obj, char *format, ...);
 void print_warning_at(int lineno, int column, char *line, char *format, ...);
 void print_warning_range(int lineno, int column_start, int column_end,
                          char *line, char *format, ...);
+
 void print_warning_no_loc(char *format, ...);
 void print_note(void *loc_obj, char *format, ...);
 void print_note_at(int lineno, int column, char *line, char *format, ...);
