@@ -227,7 +227,7 @@ void print_user_error(char *header, const char *format, ...) {
 
 void print_char_n_times(char c, size_t n) {
     for (size_t i = 0; i < n; i++) {
-	putchar(c)
+	putchar(c);
     }
 }
 
